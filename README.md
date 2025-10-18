@@ -1,2 +1,1 @@
-🧠 My JavaScript Projects 
 Welcome to my personal collection of JavaScript creations! This website showcases a variety of hands-on projects that reflect my journey through web development. Each project is built with vanilla JavaScript and designed to be both functional and fun.
