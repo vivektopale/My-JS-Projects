@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My JavaScript Projects</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    ::-webkit-scrollbar{
+        scrollbar-width: none;
+    }
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #f0f2f5;
+      color: #333;
+    }
+
+    header {
+      background-color: #1e1e2f;
+      color: white;
+      padding: 30px 0;
+      text-align: center;
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.8em;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 35px;
+      padding: 50px  10px;
+      margin-top: 125px;
+      margin-bottom: 50px;
+    }
+
+    .project-card {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .project-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.315);
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .project-content {
+      padding: 20px;
+    }
+
+    .project-content h3 {
+      margin-top: 0;
+      font-size: 1.6em;
+      color: #1e1e2f;
+    }
+
+    .project-content p {
+      font-size: 1em;
+      line-height: 1.5;
+    }
+    .project-content a{
+        text-align: center;
+        text-decoration: none;
+        color: white;
+        background-color: #1e1e2f;
+        padding: 8px;
+        font-size: 0.8em;
+        border-radius: 10px;
+        border: 1px solid gray;
+    }
+    footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #1e1e2f;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>My JavaScript Projects</h1>
+  </header>
+
+  <section class="projects">
+    <div class="project-card">
+      <img src="images/snake.png" alt="Snake Game" />
+      <div class="project-content">
+        <h3>Snake Game</h3>
+        <p>A classic arcade-style snake game built with canvas and keyboard controls.</p>
+        <a href="./snake.html"> click to open</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <img src="images/quiz.png" alt="Quiz Game" />
+      <div class="project-content">
+        <h3>Quiz Game</h3>
+        <p>Interactive quiz with multiple-choice questions, scoring, and feedback.</p>
+        <a href="./Quiz-App.html"> click to open</a>
+      </div>
+    </div>
+
+    
+    <div class="project-card">
+        <img src="images/tic-tac-toe.png" alt="Snake Game" />
+        <div class="project-content">
+            <h3>Tic Tac Toe</h3>
+            <p>A simple Tic Tac Toe game with responsive and attractive design.</p>
+            <a href="./Tic-Tac-Toe.html"> click to open</a>
+        </div>
+    </div>
+    
+    <div class="project-card">
+      <img src="images/crud.png" alt="CRUD Operations" />
+      <div class="project-content">
+        <h3>CRUD Operations</h3>
+        <p>Manage data with Create, Read, Update, Delete functionality using local storage.</p>
+        <a href="./crud.html"> click to open</a>
+      </div>
+    </div>
+    <div class="project-card">
+      <img src="images/QRcode.png" alt="QR Code Generator" />
+      <div class="project-content">
+        <h3>QR Code Generator</h3>
+        <p>Generate QR codes from user input using a JavaScript library and custom styling.</p>
+        <a href="./QR-Generater.html"> click to open</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <img src="images/Cal.png" alt="Calculator" />
+      <div class="project-content">
+        <h3>Calculator</h3>
+        <p>Simple and elegant calculator with basic arithmetic operations and responsive design.</p>
+        <a href="./Calculator.html"> click to open</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Vivek Topale. Built with ❤️ and JavaScript😊.
+  </footer>
+
+</body>
+</html>

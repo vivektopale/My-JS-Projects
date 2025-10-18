@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Operations</title>
+    <link rel="shortcut icon" href="./images/vivek.jpg" type="image/x-icon">
+    <style>
+
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        
+        .container{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        article{
+            width: 52%;
+            height: 95vh;
+            background-color: white;
+        }
+        .con{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            /* border: 1px solid black; */
+            width: 100%;
+            height: 95vh;
+            padding: 20px;
+            background-color: white;
+            
+        }
+        .con h1{
+            text-align: center;
+        }
+        input{
+            padding: 10px 5px;
+            outline: none;
+            border: 1px solid #bbb7b7;;
+            width: 40%;
+            border-radius: 10px;
+        }
+        .btn{
+            border: none;
+            background-color: rgb(4, 125, 4);
+            padding: 10px 12px;
+            cursor: pointer;
+            font-weight: bold;
+            color: white;
+            border-radius: 5px;
+        }
+        .btn:hover{
+            background-color:rgb(1, 85, 1);
+        }
+
+        .create-form,.update-form{
+            display: none;
+        }
+        table{
+            text-align: center;
+            border-collapse: collapse;
+        }
+        tr:nth-child(even){
+            background-color: rgb(240, 237, 237);
+        }
+        td,th{
+            padding: 5px;
+        }
+        .Edit{
+            padding: 5px 8px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0px 0px 2px black;
+            background-color: blue;
+            cursor: pointer;
+        }
+        .Delete{
+            padding: 5px 8px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0px 0px 2px black;
+            background-color: rgb(255, 0, 0);
+            cursor: pointer;
+        }
+         .Read{
+            padding: 5px 8px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0px 0px 2px black;
+            background-color: rgb(47, 233, 10);
+            cursor: pointer;
+        }
+        .read-container{
+            display: none;
+            place-items: center;
+           height: 100%;
+           width: 100%;
+        }
+        .read-con{
+          
+           display:flex;
+           width: 42%;
+           height: auto;
+           margin-top: 50px;
+           border-radius: 15px;
+           flex-direction: column;
+           gap: 20px;
+           padding: 20px 10px;
+           text-align: left;
+           background:#fff;
+           filter: drop-shadow(0px 0px 3px black);
+        }
+        .read-con input{
+            width: 100%;
+        }
+        #home{
+            position: absolute;
+            right: 1%;
+            top: 1%;
+            padding: 9px 8px;
+            background-color: rgb(255, 241, 241);
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 1.2em;
+
+        }
+        #home:hover{
+          background: #efececfa;
+        }
+
+        @media screen and (max-width:930px){
+            article{
+                width: 100vw;
+                height: 100vh;
+            }
+            tr{
+                font-size: 12px;
+            }
+            .Read,.Delete,.Edit{
+                padding: 5px;
+                margin-block: 5px;
+                font-size: 10px;
+            }
+            input{
+                padding: 5px 8px;
+                width: 40%;
+            }
+
+            .btn{
+                font-size: 10px;
+            }
+            .read-con{
+                width: 82%;
+            }
+            #home{
+                top: 2%;
+                right: 91%;
+                font-size: 1em;
+                background: #eadede;
+            }
+        }
+    </style>
+</head>
+
+<body onload="readall()">
+
+<div class="container">
+<article>
+    
+<div class="con">
+    <a href="./index.html" id="home">🏠</a>
+    <h1>JS CRUD using local Storage</h1>
+    <form class="create-form" onsubmit="add(event)">
+        
+        <input type="text" name="name" id="name" placeholder="Enter name" required >
+        <input type="email" name="email" id="email" placeholder="Enter email"  required>
+        <!-- <button  type="submit" class="cre btn">Create</button> -->
+        <button type="submit" class="cre btn">create</button>
+        <button  class=" btn" onclick="display_none()">cancle</button>
+    </form>
+
+
+    <form class="update-form">
+        <input type="text" hidden class="id">
+        <input type="text" name="name" id="uname" placeholder="Enter name" />
+        <input type="email" name="email" id="uemail" placeholder="Enter email" />
+        <button type="button" class="upd btn" onclick="update()" >update</button>
+        <button  class=" btn" onclick="display_none()">cancle</button>
+    </form>
+
+    <div class="adbtn">
+        <button class="add btn" onclick="display()">Add +</button>
+    </div>
+
+    <table border="2">
+        <thead>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Action</th>
+        </thead>
+        <tbody class="data_table">
+
+        </tbody>
+    </table>
+
+
+
+</div>
+<div class="read-container">
+    <h1 style="text-align: center; margin-top: 15px;">JS CRUD using local Storage</h1>
+    <div class="read-con">
+        <label>Username:</label>
+        <input type="text" class="username">
+        <label>Email:</label>
+         <input type="text" class="useremail">
+        <label>UserId:</label>
+        <input type="text" class="userid">
+        <button class="btn" onclick="Close()">close</button>
+    </div>
+</div>
+</article>
+</div>
+
+<script>
+
+let data =[
+   
+    {id:1, name:"vivek",email:"vivek2212@gmail.com"},
+    {id:2, name:"vikas",email:"vikas1206@gmail.com"}
+
+]
+
+ 
+
+function readall(){
+    localStorage.setItem("object",JSON.stringify(data));
+    var tabledata = document.querySelector(".data_table");
+    var object= localStorage.getItem('object');
+    var obj_data =JSON.parse(object);
+    var elements="";
+    // console.log(obj_data)
+    
+    obj_data.map((record) => {
+        elements += `<tr>
+            <td>${record.name}</td>
+            <td>${record.email}</td>
+            <td>
+                <button class="Edit" onclick={edit(${record.id})}>Edit</button>
+                <button class="Delete" onclick={Delete(${record.id})}>Delete</button>
+                <button class="Read" onclick={Read(${record.id})}>Read</button>
+            </td>
+            </tr>`
+    })
+
+    tabledata.innerHTML=elements;
+   
+}
+
+function display(){
+
+     document.querySelector(".create-form").style.display="block";
+    document.querySelector(".update-form").style.display="none"
+
+}
+
+function add(event){
+   event.preventDefault();
+   let name=document.getElementById('name').value;
+   let email=document.getElementById('email').value;
+   let newuser={
+    id:data.length+1,
+    name:name,
+    email:email
+   }
+   data.push(newuser)
+   readall();
+
+    document.querySelector(".create-form").style.display="none";
+   
+}
+
+edit=(id)=>{
+    document.querySelector(".create-form").style.display="none";
+    document.querySelector(".update-form").style.display="block"
+    let obj= data.find(rec=>rec.id===id);
+    document.getElementById('uname').value=obj.name;
+    document.getElementById('uemail').value=obj.email;
+    document.querySelector(".id").value=obj.id;
+}
+update=(e)=>{
+
+   let name = document.getElementById('uname').value;
+    let email = document.getElementById('uemail').value;
+    let id = parseInt(document.querySelector(".id").value);
+
+    let index=data.findIndex(rec=>rec.id === id)
+    data[index]={id,name,email};
+    document.querySelector(".update-form").style.display="none"
+    readall();
+
+}
+Delete=(id)=>{
+    document.querySelector(".create-form").style.display="none";
+    document.querySelector(".update-form").style.display="none"
+    data = data.filter((v)=>v.id != id)
+    readall();
+}
+
+function Read(id){
+    document.querySelector(".con").style.display="none";
+    document.querySelector(".read-container").style.display="block";
+
+    let obj= data.find(rec=>rec.id===id);
+    document.querySelector(".username").value=obj.name;
+    document.querySelector(".useremail").value=obj.email;
+    document.querySelector(".userid").value=obj.id;
+    console.log(id)
+
+}
+
+function display_none(){
+
+    document.querySelector(".create-form").style.display="none";
+    document.querySelector(".update-form").style.display="none";
+}
+
+
+function Close(){
+    document.querySelector(".read-container").style.display="none";
+    document.querySelector(".con").style.display="flex";
+
+}
+
+
+
+</script>
+</body>
+</html>

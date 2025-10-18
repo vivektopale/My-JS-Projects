@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./images/vivek.jpg" type="image/x-icon">
+    <title>Calculator</title>
+
+    <style>
+        body{
+            background-color: rgb(54, 133, 245);
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container{
+            display: flex;
+            /* margin: 50px auto; */
+            flex-direction:column ;
+            align-items: center;
+            width: 400px;
+            height: 600px;
+             background-color: rgb(47, 50, 54);
+        }
+        h1{
+            color:#fff;
+        }
+        .cal{
+            border: 1px solid rgb(155, 135, 135);
+            border-radius: 10px;
+            width: 85%;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        input{
+            border: none;
+            outline: none;
+            width: 326px;
+            padding:16px 5px;
+            font-size: 24px;
+        }
+        .btn{
+            width: 72px;
+            margin: 5px;
+            height: 62px;
+            border:1px solid red;
+            border-radius: 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .og{
+            background: rgb(252, 121, 7);
+            border: none;
+        }
+            #home{
+            position: absolute;
+            right: 1%;
+            top: 1%;
+            padding: 9px 8px;
+            background-color: rgb(255, 241, 241);
+            border-radius: 10px;
+            text-decoration: none;
+            /* font-size: 1.2em; */
+
+        }
+        #home:hover{
+          background: #efececfa;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <a href="./index.html" id="home">🏠</a>
+        <h1>
+            Welcome to My calculator
+        </h1>
+        <div class="cal">
+            <input type="text" id="output" />
+
+            <div class="ops">
+            <button class="btn og">AC</button>
+            <button class="btn og">%</button>
+            <button class="btn og">$</button>
+            <button class="btn og">/</button>
+            </div>
+            <div class="ops">
+            <button class="btn">7</button>
+            <button class="btn">8</button>
+            <button class="btn">9</button>
+            <button class="btn og">*</button>
+            </div>
+            <div class="ops">
+            <button class="btn">4</button>
+            <button class="btn">5</button>
+            <button class="btn">6</button>
+            <button class="btn og">-</button>
+            </div>
+            <div class="ops">
+            <button class="btn">1</button>
+            <button class="btn">2</button>
+            <button class="btn">3</button>
+            <button class="btn og">+</button>
+            </div>
+            <div class="ops">
+            <button class="btn">0</button>
+            <button class="btn">00</button>
+            <button class="btn">.</button>
+            <button class="btn og">=</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+
+        let str="";
+        let buttons=document.querySelectorAll("button");
+        Array.from(buttons).forEach((button)=>{
+            button.addEventListener('click',(e)=>{
+                if(e.target.innerHTML == "="){
+
+                    str=eval(str);
+                    document.querySelector("#output").value=str;
+                }
+                else if(e.target.innerHTML == "AC"){
+                    str="";
+                    document.querySelector("#output").value=str;
+                }
+                else{
+                str=str + e.target.innerHTML;
+                
+                document.querySelector("#output").value=str;
+                }
+        })
+
+        })
+
+    </script>
+</body>
+</html>

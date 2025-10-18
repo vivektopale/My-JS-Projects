@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz app</title>
+    <link rel="shortcut icon" href="./images/vivek.jpg" type="image/x-icon">
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body{
+            background-color: black;
+        }
+        .main{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            filter: drop-shadow(0px 0px 3px white);
+            flex-direction: column;
+        }
+        .main>h1{
+            margin-top: -10%;
+            margin-bottom: 50px;
+            color: white;
+        }
+        #box{      
+            width: 40%;
+            /* height: 400px; */
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+        .row{
+            width: 80%;
+           margin: 28px;
+        }
+        .btn{
+            width: 100%;
+            padding: 8px 10px ;
+            color: white;
+            font-weight: bold;
+            border: none;
+            background-color: #000;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+         .btn:hover{
+            background-color: #000000e3;
+         }
+         .result{
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+             width: 40%;
+            /* height: 400px; */
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            flex-direction: column;
+         }
+         .b2{
+            width: 50%;
+         }
+         .bge{
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+         }
+         #home{
+            position: absolute;
+            right: 1%;
+            top: 1%;
+            padding: 9px 8px;
+            background-color: rgb(255, 241, 241);
+            border-radius: 10px;
+            text-decoration: none;
+            /* font-size: 1.2em; */
+
+        }
+        #home:hover{
+          background: #efececfa;
+        }
+
+          @media screen and (max-width:965px) {
+
+            #box,.result{
+                width: 80%;
+            }
+            .result h2{
+                 font-size: 1em;
+            }
+         }
+            
+         
+    </style>
+</head>
+<body onload="loadQuestion()">
+    <div class="main">
+        <a href="./index.html" id="home">🏠</a>
+        <h1>Quiz Game Using Js</h1>
+        <div id="box" class="dis">
+            <p class="ques">This is the dummy Question?</p>
+            <div class="row">
+                <input type="radio" class="options" name="option" id="option1" value="a">
+                <label for="option1">a. option </label>
+            </div>
+            <div class="row">
+                <input type="radio" class="options" name="option" id="option2" value="b">
+                <label for="option2">b. option </label>
+            </div>
+            <div class="row">
+                <input type="radio" class="options" name="option" id="option3" value="c">
+                <label for="option3">c. option </label>
+            </div>
+             <div class="row">
+                <input type="radio" class="options" name="option" id="option4" value="d">
+                <label for="option4">d. option </label>
+            </div>
+            <button class="btn" onclick="submit()">Submit</button>
+
+        </div>
+        <div class="result">
+            <h2>✨✨  Here is your result   ✨✨</h2>
+            <div class="bge"></div>
+            <button class="btn b2" onclick="reload()">Play Again</button>
+            </div>
+    </div>
+
+
+
+    <script>
+
+        const questions = [
+  {
+    que: "Which of the following is a markup language?",
+    a: "HTML",
+    b: "CSS",
+    c: "JavaScript",
+    d: "PHP",
+    correct: "a"
+  },
+  {
+    que: "Which language is used for styling web pages?",
+    a: "HTML",
+    b: "JQuery",
+    c: "CSS",
+    d: "XML",
+    correct: "c"
+  },
+  {
+    que: "Which is not a JavaScript framework?",
+    a: "React",
+    b: "Angular",
+    c: "Vue",
+    d: "Python",
+    correct: "d"
+  },
+  {
+    que: "Which of the following is a server-side language?",
+    a: "JavaScript",
+    b: "Python",
+    c: "HTML",
+    d: "CSS",
+    correct: "b"
+  },
+  {
+    que: "Which HTML tag is used to define an internal style sheet?",
+    a: "<script>",
+    b: "<style>",
+    c: "<css>",
+    d: "<link>",
+    correct: "b"
+  },
+  {
+    que: "Which company developed JavaScript?",
+    a: "Netscape",
+    b: "Google",
+    c: "Microsoft",
+    d: "IBM",
+    correct: "a"
+  },
+  {
+    que: "What does CSS stand for?",
+    a: "Creative Style Sheets",
+    b: "Cascading Style Sheets",
+    c: "Computer Style Sheets",
+    d: "Colorful Style Sheets",
+    correct: "b"
+  },
+  {
+    que: "Which symbol is used for comments in JavaScript?",
+    a: "//",
+    b: "#",
+    c: "/* */",
+    d: "<!-- -->",
+    correct: "a"
+  },
+  {
+    que: "Inside which HTML element do we put the JavaScript?",
+    a: "<js>",
+    b: "<javascript>",
+    c: "<scripting>",
+    d: "<script>",
+    correct: "d"
+  },
+  {
+    que: "Which method is used to write HTML output in JavaScript?",
+    a: "document.write()",
+    b: "console.log()",
+    c: "window.alert()",
+    d: "innerHTML",
+    correct: "a"
+  }
+];
+ 
+let index = 0;
+let length = questions.length;
+let answer="";
+let right=0,wrong=0;
+const quesBox= document.querySelector(".ques");
+const options = document.querySelectorAll(".options")
+console.log(options)
+let loadQuestion = () =>{
+    if(index == length){
+     return end();
+    }
+    reset();
+    let data = questions[index];
+    quesBox.innerHTML=`${index+1}.${data.que}`;
+    options[0].nextElementSibling.innerText=data.a;
+    options[1].nextElementSibling.innerText=data.b;
+    options[2].nextElementSibling.innerText=data.c;
+    options[3].nextElementSibling.innerText=data.d;
+}
+
+let submit=()=>{
+    getdata();
+    const data =questions[index]
+    let ans=answer;
+
+    if(ans==data.correct) right++;
+    else wrong++;
+    // console.log(right , wrong)
+
+    index++;
+    loadQuestion();
+}
+
+let getdata=()=>{
+    options.forEach((input)=>{
+        if(input.checked){
+            answer=input.value;
+        }
+    })
+
+}
+
+const reset=()=>{
+    options.forEach((input)=>{
+        input.checked=false;
+    })
+
+}
+
+
+let end=()=>{
+        document.querySelector(".dis").style.display="none";
+        document.querySelector(".result").style.display="flex";
+    let bge="";
+        if(right<=4){
+            bge="Bad score 😞"
+        }
+        else if(right>4 && right<=7){
+            bge="Good score 😊"
+        }
+        else{
+            bge="Excellent score 🤩"
+        }
+        document.querySelector(".bge").innerHTML=`
+        <h2 > Scored ${right} / ${length}</h2>
+            <p>${bge}</p>
+        `;
+
+}
+
+let reload=()=>{
+    window.location.reload();
+};
+
+
+
+
+
+    </script>
+</body>
+</html>
